@@ -1,0 +1,122 @@
+{% extends "base_dashboard.html" %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col md-12">
+<h2 class="text-center">Welcome to Dashboard</h2>
+
+  {% block content1 %}
+	<div class="container">
+    {% for Category in Categories %}
+    {% if Category.items != [] %}
+     <div class="container-fluid bg-light p-4">
+    <h1 class="text-center">{{ Category.name }}
+     <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#categoryModal{{ Category.id}}" data-bs-whatever="@fat">Update</button>
+      <a href="/admin-dashboard/delete/{{Category.id}}" class="btn btn-danger float-end" onclick="return confirm('Are you sure to delete ?')">Delete</a>
+    </h1>
+     </div>
+    {% endif %}
+		<div class="row">
+      {% for Product in products %}
+      {% if  Product.category.name == Category.name %}
+      <div class="col-md-3">
+				<div class="card">
+					<img src="{{ url_for('static',filename=Product.photo_dest_path)  }}" class="mb-3 img-fluid" alt="...." style="width: auto; height: 150px;">
+					<div class="card-body">
+						<h5 class="card-title">{{ Product.product }}</h5>
+						<p class="card-text">{{ Product.price }}                </p>
+             <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modaledit{{Product.id}}">Update</a>
+  <a href="admin-dashboard/delete/{{Product.id}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete ?')">Delete</a>
+					</div>
+				</div>
+      </div>
+
+<div class="modal fade" id="modaledit{{Product.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <form method="post" action ='/admin-dashboard/update/{{Product.id}}' enctype="multipart/form-data">
+              {{ form1.hidden_tag() }}
+
+							<div class="mb-3">
+                 {{ form1.product.label() }}
+                 {{ form1.product(class="form-control", value=Product.product) }}  
+							</div>
+							<div class="mb-3">
+                  {{ form1.price.label() }}
+                 {{ form1.price(class="form-control", value=Product.price) }} 
+							</div>
+              <div class="mb-3">
+                {{ form1.unit.label() }}
+                {{ form1.unit(class="form-control", value=Product.unit) }}
+              </div>
+                <div class="mb-3">
+                {{ form1.quantity_stored.label() }}
+                {{ form1.quantity_stored(class="form-control", value=Product.quantity_stored) }}
+              </div>
+							<div class="mb-3">
+								 {{ form1.category.label() }}
+                 {{ form1.category(class="form-select") }} 
+							</div>
+              <div class="mb-3">
+                {{ form1.manufacture_date.label() }}
+                {{ form1.manufacture_date(class="form-control",value=Product.manufacture_date)}}
+              </div>
+              <div class="mb-3">
+                {{ form1.expiry_date.label() }}
+                {{ form1.expiry_date(class="form-control",value=Product.expiry_date)}}
+              </div>
+              <div class="mb-3">
+              	{{ form1.description.label() }}
+                {{ form1.description(class="form-control", value=Product.description) }} 
+							</div>
+							<button type="submit" class="btn btn-primary">Add Item</button>
+						</form> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="modal fade" id="categoryModal{{ Category.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <form method="post" action = "/admin-dashboard/category/{{ Category.id}}" enctype="multipart/form-data">
+              {{ form.hidden_tag() }}
+							<div class="mb-3">
+                 {{ form5.name.label() }}
+                 {{ form5.name(class="form-control", placeholder="Name") }}  
+							</div>
+							<div class="mb-3">
+                  {{ form5.description.label() }}
+                 {{ form5.description(class="form-control", placeholder="Description") }} 
+							</div>
+							
+							<button type="submit" class="btn btn-primary">Add Category</button>
+						</form> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+      {% endif %}
+      {% endfor %}
+			<!-- Add more item cards as needed -->
+		</div>
+    {% endfor %}
+	</div>
+      {% endblock %}
+    </div>
+{% endblock %}

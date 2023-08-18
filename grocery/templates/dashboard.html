@@ -1,0 +1,46 @@
+{% extends "user_base.html" %}
+ {% block body %}
+  {% block content %}
+	<!-- Add a dashboard with item buying options -->
+<div class="container">
+  <div class="row">
+    <div class="col md-12">
+<h2 class="text-center">Welcome to Dashboard</h2>
+    {% for Category in Categories %}
+    {% if Category.items != [] %}
+  <div class="container-fluid bg-light p-3">
+    <h2 class="text-center">{{ Category.name }}</h2>
+  </div>
+    {% endif %}
+      
+		<div class="row">
+      {% for Product in products %}
+      {% if  Product.category.name == Category.name %}
+			<div class="col-md-3">
+        <div class="card">
+  <img src="{{ url_for('static',filename=Product.photo_dest_path)  }}" class="mb-3 img-fluid" alt="..." style="width: auto; height: 150px">
+  <div class="card-body text-center">
+      <h5 class="card-title">{{ Product.product }}</h5>
+    <h5 class="card-text">&#8377 {{ Product.price }}{{Product.unit}}</h5>
+    {% if Product.quantity_stored > 0 %}
+    <form class="form-floating" method="POST" action="dashboard/{{Product.id}}">
+  <input type="number" class="col-md-2" id="quantity" name="quantity" value=1>
+  <input type="submit" value="Add to &#128722;" onclick="Added to cart" class="btn btn-info btn-sm">        
+</form>
+    {% else %}
+    <h5 class="card-text" style="background-color: red;">Out Of Stock</h5>
+    {% endif %}
+  </div>
+</div>
+
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  {% endfor %}
+      					</div>
+				</div>
+      </div>
+</div>
+  {% endblock %}
+  {% endblock %}

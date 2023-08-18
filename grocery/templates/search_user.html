@@ -1,0 +1,24 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<h5>Search results for {{ searched }}:</h5>
+<div class="container">
+  <div class="row">
+    {% for Product in products %}
+    <div class="col-md-3">
+				<div class="card">
+					<img src="{{ url_for('static',filename=Product.photo_dest_path) }}" class="mb-3 img-fluid" alt="...." style="width: auto; height: 150px;">
+					<div class="card-body">
+						<h5 class="card-title">{{ Product.product }}</h5>
+						<p class="card-text">{{ Product.price }}</p>
+             <form class="form-floating" method="POST" action="dashboard/{{Product.id}}">
+  <input type="number" class="col-md-2" id="quantity" name="quantity" value=1>
+  <input type="submit" value="&#128722;" onclick="Added to cart" class="btn btn-info btn-sm">        
+</form>
+              </div>
+        </div>
+    </div>
+        {% endfor %}
+  </div>
+</div>
+      
+{% endblock %}

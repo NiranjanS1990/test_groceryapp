@@ -1,0 +1,271 @@
+---
+swagger: '2.0'
+basePath: "/api"
+paths:
+  "/api/Category":
+    get:
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Category"
+      operationId: get_category_list_api
+      parameters:
+      - name: X-Fields
+        in: header
+        type: string
+        format: mask
+        description: An optional fields mask
+      tags:
+      - api
+    post:
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/Category"
+      operationId: post_category_list_api
+      parameters:
+      - name: payload
+        required: true
+        in: body
+        schema:
+          "$ref": "#/definitions/CategoryInput"
+      - name: X-Fields
+        in: header
+        type: string
+        format: mask
+        description: An optional fields mask
+      tags:
+      - api
+  "/api/Category/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      type: string
+    put:
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/Category"
+      operationId: put_category__product_api
+      parameters:
+      - name: payload
+        required: true
+        in: body
+        schema:
+          "$ref": "#/definitions/CategoryInput"
+      - name: X-Fields
+        in: header
+        type: string
+        format: mask
+        description: An optional fields mask
+      tags:
+      - api
+    get:
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/Category"
+      operationId: get_category__product_api
+      parameters:
+      - name: X-Fields
+        in: header
+        type: string
+        format: mask
+        description: An optional fields mask
+      tags:
+      - api
+    delete:
+      responses:
+        '200':
+          description: Success
+      operationId: delete_category__product_api
+      tags:
+      - api
+  "/api/products":
+    get:
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Item"
+      operationId: get_product_list_api
+      parameters:
+      - name: X-Fields
+        in: header
+        type: string
+        format: mask
+        description: An optional fields mask
+      tags:
+      - api
+    post:
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/Item"
+      operationId: post_product_list_api
+      parameters:
+      - name: payload
+        required: true
+        in: body
+        schema:
+          "$ref": "#/definitions/ItemInput"
+      - name: X-Fields
+        in: header
+        type: string
+        format: mask
+        description: An optional fields mask
+      tags:
+      - api
+  "/api/products/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      type: integer
+    put:
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/Item"
+      operationId: put_product_api
+      parameters:
+      - name: payload
+        required: true
+        in: body
+        schema:
+          "$ref": "#/definitions/ItemInput"
+      - name: X-Fields
+        in: header
+        type: string
+        format: mask
+        description: An optional fields mask
+      tags:
+      - api
+    get:
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/Item"
+      operationId: get_product_api
+      parameters:
+      - name: X-Fields
+        in: header
+        type: string
+        format: mask
+        description: An optional fields mask
+      tags:
+      - api
+    delete:
+      responses:
+        '200':
+          description: Success
+      operationId: delete_product_api
+      tags:
+      - api
+info:
+  title: Grocery App CURD Operation Api
+  version: '1.0'
+  description: Performs CURD opertions on  Category & Product list of Grocery
+produces:
+- application/json
+consumes:
+- application/json
+tags:
+- name: api
+  description: Curd opertions
+definitions:
+  CategoryInput:
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+    type: object
+  Category:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      description:
+        type: string
+      items:
+        type: array
+        items:
+          "$ref": "#/definitions/Item"
+    type: object
+  Item:
+    required:
+    - category_id
+    - price
+    - product
+    - quantity_stored
+    - unit
+    properties:
+      id:
+        type: integer
+        description: Category unique identifier
+        readOnly: true
+      product:
+        type: string
+        description: Product Name
+      quantity_stored:
+        type: integer
+        description: Quantity of product available in the store
+      price:
+        type: integer
+        description: Unit Price of given item
+      unit:
+        type: string
+        description: Storage unit of given product. e.g. per Kg etc
+      category_id:
+        type: integer
+        description: Foreign key indicating in which category given product belong
+      manufacture_date:
+        type: string
+        format: date
+      expiry_date:
+        type: string
+        format: date
+      description:
+        type: string
+        description: Breif Description of Product
+    type: object
+  ItemInput:
+    properties:
+      product:
+        type: string
+      quantity_stored:
+        type: integer
+      price:
+        type: integer
+      unit:
+        type: string
+      category_id:
+        type: integer
+      manufacture_date:
+        type: string
+        format: date
+      expiry_date:
+        type: string
+        format: date
+      description:
+        type: string
+    type: object
+responses:
+  ParseError:
+    description: When a mask can't be parsed
+  MaskError:
+    description: When any error occurs on mask

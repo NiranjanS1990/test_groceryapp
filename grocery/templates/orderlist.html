@@ -1,0 +1,44 @@
+{% extends "base_dashboard.html" %}
+{% block body %}
+ <div class="container">
+       <form method="POST" action="{{ url_for('orderlist') }}"class="container mt-5">
+         <div class="form-group text-center">
+        <label for="from-date">From Date:</label>
+        <input type="date" id="from-date" name="from_date" required>
+
+        <label for="to-date">To Date:</label>
+        <input type="date" id="to-date" name="to_date" required>
+
+        <input type="submit" value="Submit">
+         </div>
+    </form>
+      {% if orderlist == None %}
+        <h5>Order not placed</h5>
+      {% else %}
+        <hr>
+        <h1 class="text-center">Order Details</h1>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Time of Purchase</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orderlist %}
+                <tr>
+                    <td>{{ order.id  }}</a></td>
+                    <td>{{ order.user.username }}</td>
+                    <td>{{ order.timestamp }}</td>
+                    <td> &#8377 {{ order.amount }}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+  </div>
+  {% endblock %}

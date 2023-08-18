@@ -1,0 +1,30 @@
+{% extends "base_dashboard.html" %}
+{% block body %}
+ <div class="container">
+       
+        <hr>
+        <h1 class="text-center">Order Details for Order Id {{id}}</h1>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(items) %}
+                <tr>
+                    <td>{{ order_details['product'][i].category  }}</a></td>
+                    <td>{{ order_details['product'][i].product }}</td>
+                    <td>{{ order_details['quantity'][i] }}</td>
+                    <td> &#8377 {{ order_details['product'][i].price*order_details['quantity'][i] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+  </div>
+  {% endblock %}

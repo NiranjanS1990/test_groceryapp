@@ -1,0 +1,45 @@
+{% extends 'user_base.html' %}
+{% block body %}
+ <h1 class="center"> <button onclick="window.print()">Print</button></h1>
+  
+  <div id="print-content">
+    <div class="container">
+        <h1>Order Bill</h1>
+        <hr>
+        <h2>Order Details</h2>
+        <p><strong>Order ID:</strong> {{ order.id }}</p>
+        <p><strong>Name:</strong> {{ order.user.username }}</p>
+        <p><strong>TimeStamp:</strong> {{ order.timestamp }}</p>
+
+        <h2>Items</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price/unit</th>
+                    <th>Discount</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(item_list) %}
+                <tr>
+                    <td>{{ product_purchased['Product'][i].product }}</td>
+                    <td>{{ product_purchased['quantity'][i] }}</td>
+                    <td> &#8377 {{ product_purchased['Product'][i].price }}{{ product_purchased['Product'][i].unit }}</td>
+                    <td>{{discount*100}}%</td>
+                    <td> &#8377 {{ product_purchased['Product'][i].price*product_purchased['quantity'][i]*(1-discount) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Total Amount: &#8377 {{ amount }}</h2>
+    </div>
+  </div>
+  <button onclick="window.print()">Print</button>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}
