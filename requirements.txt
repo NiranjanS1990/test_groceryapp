@@ -1,0 +1,16 @@
+python 
+numpy 
+replit 
+Flask 
+urllib3 
+Flask-SQLAlchemy 
+WTForms 
+Flask-WTF 
+Flask-Bcrypt 
+market 
+Flask-Login 
+Flask-Uploads 
+WTForms-SQLAlchemy 
+pdfkit 
+weasyprint
+flask-restx
