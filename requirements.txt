@@ -8,8 +8,9 @@ Flask-WTF
 Flask-Bcrypt 
 market 
 Flask-Login 
-Flask-Uploads 
+Flask-Reuploaded
 WTForms-SQLAlchemy 
 pdfkit 
 weasyprint
 flask-restx
+
