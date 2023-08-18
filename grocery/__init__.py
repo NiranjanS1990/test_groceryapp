@@ -6,7 +6,7 @@ from flask_uploads import UploadSet, IMAGES, configure_uploads
 from flask_restx import Api
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///.database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
 app.config["UPLOADED_PHOTOS_DEST"] = "grocery/static/upload"
 db = SQLAlchemy()
