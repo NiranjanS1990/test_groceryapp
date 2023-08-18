@@ -1,4 +1,14 @@
-* ## To run the Grocery app $ python3 app.py in terminal
+# App Summary
+  Here we have created  multi-user grocery app with store managers and other customers. we use sqlite database to store user authentication and other grocery data
+# Installation requirements
+  $ pip install -r requirements.txt
+# Run the app
+  To run the app in Termminal use command :
+  $ python app.py
+# Demo
+  https://groceryapp-imns.onrender.com
+# DB Schema Design
+
 * ## sqllite database is in folder instance
 * ## api.yml has api documentation
 * ## grocery module has all backend python files
