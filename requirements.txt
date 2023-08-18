@@ -13,4 +13,4 @@ WTForms-SQLAlchemy
 pdfkit 
 weasyprint
 flask-restx
-
+email_validator
